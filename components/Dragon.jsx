@@ -7,7 +7,7 @@ import React, {useContext, useState } from 'react';
 
 const Dragon = ({data}) => {
     const{id,name,flickr_images,description}=data;
-
+    const [status, setStatus] = useState(true);
 
 const { handleDragonR,cancel,dragonDelete,setCancel}= useContext(dragonContext);
 
@@ -32,12 +32,12 @@ const { handleDragonR,cancel,dragonDelete,setCancel}= useContext(dragonContext);
             <p className='mb-5'>{description}</p>
 
 
-            {!cancel ? (<button onClick={(e)=>{
-                handleDragonR(data);
+            {status ? (<button onClick={(e)=>{
+                handleDragonR(data); setStatus(false);
                 setCancel(true,e);
                 }} className='bg-blue-600 border-2 border-blue-600 rounded-md text-white px-5 py-3'>Reserve Dragon</button>)
                 :(<button onClick={(e)=>
-                {dragonDelete(data.id);
+                {dragonDelete(data.id); setStatus(true);
                 setCancel(false,e);}} 
                 className='text-red-600 border-2 border-red-600 rounded-md px-5 py-3 bg-white'>Cancel Reservation</button>)}
                 

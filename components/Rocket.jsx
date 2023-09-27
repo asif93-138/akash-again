@@ -1,10 +1,10 @@
 'use client'
 import { rocketContext } from '@/context/SkyContext';
 import Image from 'next/image';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 
 const Rocket = ({data}) => {
-
+        const [status, setStatus] = useState(true);
         const{name,flickr_images,description,active,reserved}=data;
 
        const{rocketDelete,handlerocketR,cancel} =useContext(rocketContext)
@@ -29,10 +29,10 @@ const Rocket = ({data}) => {
                 <p className='mb-5'>{description}</p>
                 
 
-                {!cancel ? (<button onClick={()=>{
-                handlerocketR(data);
-                }} className='bg-blue-600 border-2 border-blue-600 rounded-md text-white px-5 py-3'>Reserve Dragon</button>)
-                :(<button onClick={()=>{rocketDelete(data.id)}} 
+                {status ? (<button onClick={()=>{
+                handlerocketR(data.id); setStatus(false);
+                }} className='bg-blue-600 border-2 border-blue-600 rounded-md text-white px-5 py-3'>Reserve Rocket</button>)
+                :(<button onClick={()=>{rocketDelete(data.id); setStatus(true);}} 
                 className='text-red-600 border-2 border-red-600 rounded-md px-5 py-3 bg-white'>Cancel Reservation</button>)}
              
     
